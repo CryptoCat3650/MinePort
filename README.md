@@ -6,7 +6,7 @@ Have you ever wanted to host your own Minecraft server without all the complexit
 
 MinePort is an all-in-one, beginner-friendly, and feature-rich program that simplifies the entire Minecraft server creation and management process. From installing and customizing to backing up and updating, MinePort does it all—without the need for technical expertise, confusing port settings, or long setup times. It brings professional-level server control into the hands of any player with just a few clicks.
 
-🛠 What Is MinePort?
+What Is MinePort?
 MinePort is a multi-functional utility that helps players set up and manage both Java Edition and Bedrock Edition Minecraft servers. Designed with user-friendliness as the top priority, the program eliminates the need for terminal commands, server jars, and editing properties files manually.
 
 Built with flexibility and control in mind, MinePort allows you to:
