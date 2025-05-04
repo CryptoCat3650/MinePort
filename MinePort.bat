@@ -34,7 +34,7 @@ if exist "%MinePortSourceFolder%" (
 IF EXIST "%MinePortSourceFolder%\Java" (
     goto upgradecheck
 ) ELSE (
-	goto installjava
+	goto continue25
 )
 :continue25
 cls
