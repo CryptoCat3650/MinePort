@@ -887,7 +887,7 @@ if %Selection%==p goto settingsserver1
 :enablegraphicalinterface1
 title MinePort - MinePort Preferences
 cls
-echo on >> graphicalinterface.txt
+echo true >> graphicalinterface.txt
 goto settingsserveron
 
 :settingsserveron
@@ -1438,7 +1438,7 @@ title MinePort - MinePort Preferences
 cls
 cd %MinePortSourceFolder%
 echo 1) ##OFF## press 1 to automatically login to selected account on startup (Not Recommended)
-echo 2) Press 2 to goto menu
+echo 2) Press 2 to install a server (Installs a server without downloading it)
 echo 3) Press 3 to goto menu
 set /p Selection="Select:"
 if %Selection%==1 goto rememberme
