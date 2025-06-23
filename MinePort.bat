@@ -2,6 +2,8 @@
 chcp 65001 >nul
 cls
 set MinePortSourceFolder=c:\users\%username%\appdata\local\MP
+cd %MinePortSourceFolder%
+md Servers
 :check33
 cls
 title Checking Something
@@ -99,11 +101,7 @@ del javaversion.txt
 del javagraphicalexecute.txt
 del update.vbs
 del releases.json
-md accounts
-cd accounts
-md username
-md password
-cd..
+md Servers
 echo %MinePortSourceFolder%\Java\java%Version%\bin\java.exe > javaexecute.txt
 echo %Version% > javaversion.txt
 echo %MinePortSourceFolder%\Java\java24\bin\javaw.exe > javagraphicalexecute.txt
@@ -119,135 +117,13 @@ if /i "%DayName%"=="Fri" (
 )
 
 :BeforeMenu
-reg delete "HKCU\Environment" /v JavaExecute /f
-reg delete "HKCU\Environment" /v JavaGraphicalExecute /f
-reg delete "HKCU\Environment" /v JavaVersion /f
-reg delete "HKCU\Environment" /v UserPath /f
 set /p JavaExecute=<%MinePortSourceFolder%\javaexecute.txt
 set /p JavaGraphicalExecute=<%MinePortSourceFolder%\javagraphicalexecute.txt
 set /p JavaVersion=<%MinePortSourceFolder%\javaversion.txt
-setx JavaExecute "%JavaExecute%"
-setx JavaVersion "%JavaVersion%"
-setx JavaGraphicalExecute "%JavaGraphicalExecute%"
+set ServersPath=c:\users\%username%\appdata\local\MP\servers
 :loginmenu
-cd %MinePortSourceFolder%\accounts
-IF EXIST "%MinePortSourceFolder%\rememberme.txt" (
-	set /p Username1=<%MinePortSourceFolder%\rememberme.txt
-	goto remembermecheck
-) ELSE (
-	cls
-)
-title MinePort - Login/Register
-cls
-echo -------------------------
-echo Press 1 to login
-echo -------------------------
-echo press 2 to register
-echo -------------------------
-echo press 3 to exit
-echo -------------------------
-set /p Selection="Select 1-3:>"
-if %Selection%==1 goto login
-if %Selection%==2 goto register
-if %Selection%==3 goto exit
-goto loginmenu
-
-:remembermecheck
-cls
-IF EXIST "%MinePortSourceFolder%\accounts\username\%Username1%" (
-	setx UserPath "%MinePortSourceFolder%\accounts\username\%Username1%"
-	set User=%username1%
-	cls
-	goto Menu
-) ELSE (
-	goto loginmenu
-)
-
-:login
-pushd "%MinePortSourceFolder%\accounts\username"
-for %%f in (*) do (
-    popd
-    goto continue43
-)
-popd
-goto noaccounts
-
-:noaccounts
-cls
-echo Theres are no accounts added, please register before logging in.
-pause
-goto loginmenu
-
-:continue43
-title MinePort - Login
-cls
-set /p Username1="Enter Username: "
-cls
-echo Enter Username: %Username1%
-echo.
-set /p Password1="Enter Password: "
-cls
-echo Enter Username: %Username1%
-echo.
-echo Enter Password: %Password1%
-echo.
-echo.
-echo Press any key to Login...
-pause>nul
-set User=%username1%
-echo.
-timeout 1 >nul
-
-:passwordcheck
-IF EXIST "%MinePortSourceFolder%\accounts\username\%Username1%.txt" (
-	goto passwordcheckagain
-) ELSE (
-	timeout 0 >nul
-)
-
-:passwordfail
-echo [31mLogin Failed, Incorrect Password or Username.[0m
-echo press any key to redo...
-pause>nul
-cls
-goto loginmenu
-
-:register
-cls
-title MinePort - Register
-set /p Username1="Enter A Username (no spaces): "
-cls
-echo Enter A Username (no spaces): %Username1%
-echo.
-set /p Password1="Enter A Password: "
-cls
-echo Enter A Username (no spaces): %Username1%
-echo.
-echo Enter A Password: %Password1%
-echo.
-echo.
-cd password
-echo Password > %Password1%.txt
-cd..
-cd username
-echo Username > %Username1%.txt
-md %Username1%
-echo Press any key to Register...
-pause>nul
-echo.
-timeout 1 >nul
-echo [32mRegister Completed Successfully![0m
-echo press any key to login...
-pause>nul
-cls
-goto continue43
-
-
-
-
-
 :Menu
-cd %UserPath%
+cd %ServerPath%
 title MinePort - Menu
 cls					
 echo							[93mCreated By CryptoCat 2022-2025[0m
@@ -269,27 +145,25 @@ echo.
 echo     [96m#═╦═══════»  [Make A New Java Server (1.21.6)]     [Press 1][0m
 echo       [96m╚═╦════»  [Start A Server (Also Allows You To Change Settings)]  [Press 2][0m
 echo         [96m╚═╦════»  [List Installed Servers (Lists The Available Servers you installed)]  [Press 3][0m
-echo           [96m╚═╦════»  [Import Server (Imports your Minecraft Server into MinePort.)]  [Press 4][0m
-echo             [96m╚═╦════»  [Export Server (Exports your Server into a portable folder.)]  [Press 5][0m
-echo               [96m╚═╦═══»  [Delete A Server] [Press 6][0m
-echo                 [36m╚═╦══»  [Update A Server (Only If Getting The 'Incompatible Client Error)]    [Press 7][0m
-echo                   [94m╚═╦═»  [Backup A Server] [Press 8][0m
-echo                     [34m╚═╦»  [View Settings]   [Press 9][0m
-echo                       [91m╠═»  [Exit]     [Press 10][0m
-echo                       [96m║[0m
-echo                       [96m║[0m
-echo                       [96m║[0m
-set /p S="                      [96m╚══>[0m "
+echo           [96m╚═╦════»  [Import Server (Imports your Minecraft Server into MinePort. But you'll have to take it out yourself if you want it back)]  [Press 4][0m
+echo             [96m╚═╦═══»  [Delete A Server] [Press 5][0m
+echo               [36m╚═╦══»  [Update A Server (Only If Getting The 'Incompatible Client Error)]    [Press 6][0m
+echo                 [94m╚═╦═»  [Backup A Server] [Press 7][0m
+echo                   [34m╚═╦»  [View Settings]   [Press 8][0m
+echo                     [91m╠═»  [Exit]     [Press 9][0m
+echo                     [96m║[0m
+echo                     [96m║[0m
+echo                     [96m║[0m
+set /p S="                    [96m╚══>[0m "
 if %S%==1 goto makeserver
 if %S%==2 goto serveroptionsverify
 if %S%==3 goto listinstalled
 if %S%==4 goto importselection
-if %S%==5 goto exportselection
-if %S%==6 goto deleteserver
-if %S%==7 goto updateserver
-if %S%==8 goto backupservers
-if %S%==9 goto settingsserver
-if %S%==10 goto exit
+if %S%==5 goto deleteserver
+if %S%==6 goto updateserver
+if %S%==7 goto backupservers
+if %S%==8 goto settingsserver
+if %S%==9 goto exit
 cls
 title MinePort - Error 404
 echo [93mInvaild Input. Please Type 1-7.[0m
@@ -300,7 +174,7 @@ goto menu
 set /p JavaExecute=<%MinePortSourceFolder%\javaexecute.txt
 set /p JavaGraphicalExecute=<%MinePortSourceFolder%\javagraphicalexecute.txt
 cls
-cd %UserPath%
+cd %ServersPath%
 echo would you like to make the server public? Y/N
 set /p S="Select:"
 if %S%==y goto okmakingserverpublic
@@ -315,7 +189,7 @@ cls
 title MinePort - Downloading Server
 echo Downloading Server...
 echo --------------------------------------
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o Server.jar
 cls
 title MinePort - Creating Files
@@ -394,6 +268,7 @@ echo x=msgbox("The Server Has Been Stopped",0+64,"MinePort") >> msgbox.vbs
 del msgbox.vbs
 goto menu
 :serveroptionsverify
+cd %ServersPath%
 cls
 title MinePort - Server Options
 echo If you need help heres a list of the servers you have installed:
@@ -404,7 +279,7 @@ for /D %%F in ("*") do (
 echo ----------------------------------------
 set /p ServerName="Enter Server Name:"
 cls
-IF EXIST "%UserPath%\%ServerName%" (
+IF EXIST "%ServersPath%\%ServerName%" (
     goto serveroptions
 ) ELSE (
     echo Your Server doesn't exist. please check if its folder is called '%ServerName%' and put it on the desktop
@@ -415,14 +290,14 @@ cls
 :serveroptions
 cls
 title MinePort - Server Options
-IF EXIST "%UserPath%\%ServerName%\server.jar" (
+IF EXIST "%ServersPath%\%ServerName%\server.jar" (
 	goto serveroptions2
 	) ELSE (
 	goto serveroptions2
 )	
 
 :serveroptions2
-IF EXIST "%UserPath%\%ServerName%\run.bat" (
+IF EXIST "%ServersPath%\%ServerName%\run.bat" (
 	goto serveroptionsjava
 	) ELSE (
 	goto serveroptionsjava
@@ -433,8 +308,8 @@ set /p JavaExecute=<%MinePortSourceFolder%\javaexecute.txt
 set /p JavaGraphicalExecute=<%MinePortSourceFolder%\javagraphicalexecute.txt
 cls
 title MinePort - Starting server
-IF EXIST "%UserPath%\%ServerName%" (
-	cd %UserPath%\%ServerName%
+IF EXIST "%ServersPath%\%ServerName%" (
+	cd %ServersPath%\%ServerName%
     goto console
 ) ELSE (
     echo Your Server doesn't exist. please check if its folder is called '%ServerName%' and put it on the desktop
@@ -506,7 +381,7 @@ goto serveroptions
 
 :openserversettings
 cls
-start notepad %UserPath%\%ServerName%\server.properties
+start notepad %ServersPath%\%ServerName%\server.properties
 goto serveroptions
 
 :deleteserver
@@ -520,7 +395,7 @@ for /D %%F in ("*") do (
 echo ----------------------------------------
 set /p ServerName="Enter Server Name:"
 cls
-IF EXIST "%UserPath%\%ServerName%" (
+IF EXIST "%ServersPath%\%ServerName%" (
     goto serverdelete
 ) ELSE (
     echo Your Server doesn't exist. please check if its folder is called '%ServerName%' and put it on the desktop
@@ -539,7 +414,7 @@ pause
 goto serverdelete
 
 :deletethemfiles
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 cls
 title MinePort - Deleting Server
 echo Deleting Files
@@ -556,7 +431,7 @@ del server.jar
 del server.properties
 del usercache.json
 del whitelist.json
-cd %UserPath%
+cd %ServersPath%
 rd %ServerName%
 cls
 echo Server Deleted.
@@ -575,7 +450,7 @@ cls
 title MinePort - Downloading Server
 echo Downloading Server...
 echo -------------------------------------
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o Server.jar
 cls
 title MinePort - Creating Files
@@ -636,7 +511,7 @@ IF EXIST "Playit.exe" (
 cls
 :continue36
 title MinePort - Your Server is Online
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 cls
 echo                    88                                                                    
 echo                    ""                                                             ,d     
@@ -706,8 +581,8 @@ set /p JavaExecute=<%MinePortSourceFolder%\javaexecute.txt
 set /p JavaGraphicalExecute=<%MinePortSourceFolder%\javagraphicalexecute.txt
 cls
 title MinePort - Starting server
-IF EXIST "%UserPath%\%ServerName%" (
-	cd %UserPath%\%ServerName%
+IF EXIST "%ServersPath%\%ServerName%" (
+	cd %ServersPath%\%ServerName%
     goto console1
 ) ELSE (
     echo Your Server doesn't exist. please check if its folder is called '%ServerName%' and put it on the desktop
@@ -764,7 +639,7 @@ IF EXIST "Playit.exe" (
 cls
 :continue37
 title MinePort - Your Server is online
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 cls
 echo                    88                                                                    
 echo                    ""                                                             ,d     
@@ -1011,7 +886,7 @@ cls
 md %ServerName%
 cls
 title MinePort - Backing Up
-xcopy "%UserPath%\%ServerName%\*" "%backupdriveletter%:\MinePort Backup Servers\%ServerName%" /E /H /C /Y
+xcopy "%ServersPath%\%ServerName%\*" "%backupdriveletter%:\MinePort Backup Servers\%ServerName%" /E /H /C /Y
 cd %MinePortSourceFolder%
 echo true >> camefrombackups.txt
 cls
@@ -1035,7 +910,7 @@ echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
 curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o server.jar
 cls
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 del server.jar
 cls
 title MinePort - Updating Server
@@ -1057,7 +932,7 @@ for /D %%F in ("*") do (
 echo ----------------------------------------
 set /p ServerName="Enter Server Name: "
 cls
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 del server.jar
 cls
 echo Downloading New Minecraft Server Files...
@@ -1138,7 +1013,7 @@ cls
 md %ServerName%
 cls
 title MinePort - Backing Up
-xcopy "%UserPath%\%ServerName%\*" "%backupdriveletter%:\MinePort Backup Servers\%ServerName%" /E /H /C /Y
+xcopy "%ServersPath%\%ServerName%\*" "%backupdriveletter%:\MinePort Backup Servers\%ServerName%" /E /H /C /Y
 cls
 echo your server has successfully backed up!
 pause
@@ -1203,7 +1078,7 @@ cls
 md %ServerName%
 cls
 title MinePort - Backing Up
-xcopy "%UserPath%\%ServerName%\*" "%backupdriveletter%:\MinePort Backup Servers\%ServerName%" /E /H /C /Y
+xcopy "%ServersPath%\%ServerName%\*" "%backupdriveletter%:\MinePort Backup Servers\%ServerName%" /E /H /C /Y
 cls
 echo your server has successfully backed up!
 pause
@@ -1211,7 +1086,7 @@ goto serveroptionsjava
 
 :updatefromserversettings
 cls
-cd %UserPath%\%ServerName%
+cd %ServersPath%\%ServerName%
 del server.jar
 cls
 echo Downloading New Minecraft Server Files...
@@ -1239,7 +1114,7 @@ cls
 cd %MinePortSourceFolder%
 echo %Image% >> servericon.txt
 cls
-cd %UserPath%
+cd %ServersPath%
 copy %Image% %ServerName%
 cd %ServerName%
 del server-icon.png
@@ -1336,15 +1211,13 @@ cls
 cd %MinePortSourceFolder%
 echo 1) ##ON## Press 1 to disable so that pop-up messageboxes can show. (this includes for the playit.gg instrustions)
 echo 2) Press 2 To change a server's display name
-echo 3) Press 3 to goto menu
-echo #####################################################
-echo			PRESS P TO GO TO THE NEXT PAGE 
-echo #####################################################
+echo 3) Press 3 to install a server (Installs a server without downloading it)
+echo 3) Press 4 to goto menu
 set /p Selection="Select:"
 if %Selection%==1 goto enablemsgbox
 if %Selection%==2 goto displayname
-if %Selection%==3 goto menu
-if %Selection%==p goto settingsserver2checker
+if %Selection%==3 goto installdebugserver
+if %Selection%==4 goto menu
 
 :enablemsgbox
 title MinePort - MinePort Preferences
@@ -1360,16 +1233,13 @@ cls
 cd %MinePortSourceFolder%
 echo 1) ##OFF## Press 1 to enable so that pop-up messageboxes can show. (this includes for the playit.gg instrustions)
 echo 2) Press 2 To change a server's display name
-echo 3) Press 3 to goto menu
-echo #####################################################
-echo			PRESS P TO GO TO THE NEXT PAGE 
-echo #####################################################
+echo 3) Press 3 to install a server (Installs a server without downloading it)
+echo 4) Press 4 to goto menu
 set /p Selection="Select:"
 if %Selection%==1 goto disablemsgbox
 if %Selection%==2 goto displayname
-if %Selection%==3 goto menu
-if %Selection%==p goto settingsserver2checker
-
+if %Selection%==3 goto installdebugserver
+if %Selection%==4 goto menu
 :disablemsgbox
 title MinePort - MinePort Preferences
 cls
@@ -1378,7 +1248,7 @@ goto settingsserveroff1
 
 :displayname
 cls
-cd %UserPath%
+cd %ServersPath%
 title MinePort - Change display name
 echo If you need help heres a list of the servers you have installed:
 echo ----------------------------------------
@@ -1397,19 +1267,6 @@ echo Your new display name has been saved to your server
 pause
 goto settingsserver1
 
-
-:passwordcheckagain
-IF EXIST "%MinePortSourceFolder%\accounts\password\%Password1%.txt" (
-	echo [32mLogin Completed Successfully![0m
-	echo press any key to continue to the menu...
-	pause>nul
-	setx UserPath "%MinePortSourceFolder%\accounts\username\%Username1%"
-	cls
-	goto fridaycheck
-) ELSE (
-	goto passwordfail
-)
-
 :settingsserver2checker
 cls
 IF EXIST "%MinePortSourceFolder%\rememberme.txt" (
@@ -1423,48 +1280,16 @@ IF EXIST "%MinePortSourceFolder%\rememberme.txt" (
 title MinePort - MinePort Preferences
 cls
 cd %MinePortSourceFolder%
-echo 1) ##ON## press 1 to stop automatically logging in to selected account on startup (Recommended)
-echo 2) Press 2 to install a server (Installs a server without downloading it)
+echo 1) Press 2 to install a server (Installs a server without downloading it)
 echo 3) Press 3 to goto menu
 set /p Selection="Select:"
-if %Selection%==1 goto remembermeoff
 if %Selection%==2 goto installdebugserver
 if %Selection%==3 goto menu
-
-:settingsserveron2
-echo off
-title MinePort - MinePort Preferences
-@echo off
-cls
-cd %MinePortSourceFolder%
-echo 1) ##OFF## press 1 to automatically login to selected account on startup (Not Recommended)
-echo 2) Press 2 to install a server (Installs a server without downloading it)
-echo 3) Press 3 to goto menu
-set /p Selection="Select:"
-if %Selection%==1 goto rememberme
-if %Selection%==2 goto installdebugserver
-if %Selection%==3 goto menu
-
-:rememberme
-cls
-cd %MinePortSourceFolder%
-set /p Username1="Enter Username: "
-cls
-echo %Username1% > rememberme.txt
-echo The account '%Username1%' will be automatically logged in on startup (without login)
-pause
-goto settingsserver2checker
-
-:remembermeoff
-cls
-cd %MinePortSourceFolder%
-del rememberme.txt
-goto settingsserver2checker
 
 :listinstalled
 cls
 title MinePort - List Available Servers
-cd %UserPath%
+cd %ServersPath%
 echo These are the avaliable servers you have installed!
 echo ----------------------------------
 for /D %%F in ("*") do (
@@ -1475,24 +1300,48 @@ pause
 goto menu
 
 :installdebugserver
+cd %MinePortSourceFolder%
+IF EXIST "continue.txt" (
+    del continue.txt
+    goto continue45
+) ELSE (
+    cls
+)
 cls
 title MinePort - Installing Server
 set /p ServerName="Enter Server Folder Path (Drag And Drop Compatible): "
 cd %ServerName%
 cls
 title MinePort - Creating Files
-%JavaExecute% -Xmx1024M -Xms1024M -jar server.jar nogui
-powershell -Command "(Get-Content server.properties) -replace 'motd=A Minecraft Server', 'motd=Minecraft Server Created With MinePort!' | Set-Content server.properties"
-powershell -Command "(Get-Content eula.txt) -replace 'eula=false', 'eula=true' | Set-Content eula.txt"
 if exist "fabric-server-launch.jar" (
+	%JavaExecute% -Xmx1024M -Xms1024M -jar fabric-server-launch.jar nogui
+	powershell -Command "(Get-Content server.properties) -replace 'motd=A Minecraft Server', 'motd=Minecraft Server Created With MinePort!' | Set-Content server.properties"
+	powershell -Command "(Get-Content eula.txt) -replace 'eula=false', 'eula=true' | Set-Content eula.txt"
 	powershell -Command "(Get-Content fabric-server-launcher.properties) -replace 'serverJar=server.jar', 'serverJar=fabric.jar' | Set-Content fabric-server-launcher.properties"
+	ren server.jar fabric.jar
 	ren fabric-server-launch.jar server.jar
+	goto continue46
 	cls
-) ELSE (
+) else (
 	powershell -Command "(Get-Content run.bat) -replace 'java', '%JavaExecute%' | Set-Content run.bat"
     powershell -Command "(Get-Content run.bat) -replace 'pause', '' | Set-Content run.bat"
-	cls
+	IF EXIST "run.bat" (
+		cd %MinePortSourceFolder%
+		echo sd >> continue.txt
+		cd %ServerName%
+		echo WARNING: The Script will crash at any time on purpose, please reopen the script and press on the install a server option in settings
+		pause
+		cls
+		run.bat
+	) ELSE (
+		cls
+		%JavaExecute% -Xmx1024M -Xms1024M -jar server.jar nogui
+		powershell -Command "(Get-Content server.properties) -replace 'motd=A Minecraft Server', 'motd=Minecraft Server Created With MinePort!' | Set-Content server.properties"
+		powershell -Command "(Get-Content eula.txt) -replace 'eula=false', 'eula=true' | Set-Content eula.txt"
+	)
+	
 )
+:godo
 cls
 for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr /i "IPv4" ^| findstr /v "Tunnel"') do set IPAddress=%%a
 title MinePort - your server is online                                                                              
@@ -1510,6 +1359,7 @@ echo --------------------------------------
 echo your IP Address is: %IPAddress%
 echo --------------------------------------
 IF EXIST "run.bat" (
+
 	run.bat
 	goto continue44
 ) ELSE (
@@ -1560,7 +1410,7 @@ goto menu
 cls
 set /p ServerPath="Enter Server Folder Path (Drag And Drop Compatible): "
 cls
-move %ServerPath% %UserPath%
+move %ServerPath% %ServersPath%
 cls
 echo Import completed successfully.
 pause
@@ -1568,11 +1418,29 @@ goto menu
 
 :exportselection
 cls
-cd %UserPath%
-set /p ServerPath="Enter Server Name: "
+cd %ServersPath%
+set /p ServerName="Enter Server Name: "
 cls
-move %UserPath%\%ServerName% %Desktop%
+move %ServersPath%\%ServerName% %Desktop%
 cls
 echo Export completed successfully. The server folder is on the desktop.
 pause
 goto menu
+
+:continue45
+cls
+set /p ServerName1="Enter Server Folder Path (Drag And Drop Compatible): "
+cd %ServerName1%
+cls
+powershell -Command "(Get-Content eula.txt) -replace 'eula=false', 'eula=true' | Set-Content eula.txt"
+echo x=msgbox("You have successfully installed a server! the server will now start locally, if you want to run this server in MinePort, please import the server.",0+64,"MinePort") >> msgbox.vbs
+"msgbox.vbs"
+del msgbox.vbs
+run.bat
+
+:continue46
+cls
+echo x=msgbox("You have successfully installed a server! the server will now start locally, if you want to run this server in MinePort, please import the server.",0+64,"MinePort") >> msgbox.vbs
+"msgbox.vbs"
+del msgbox.vbs
+goto godo
