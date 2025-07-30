@@ -194,7 +194,7 @@ echo                            [96m╚═╝     ╚═╝╚═╝╚═╝  
 echo.
 echo							      [93mVersion 6.7 !BETA![0m
 echo.
-echo							 [36mWelcome %Username1%![0m
+echo							 [36mWelcome![0m
 echo.
 echo.
 echo.
