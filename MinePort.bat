@@ -1,4 +1,58 @@
 @echo off
+set "RCON_HOST=127.0.0.1"
+set "RCON_PORT=25575"
+set "RCON_PASS=MinePort"
+cd c:\users\%username%\appdata\local\temp
+powershell curl https://tinyurl.com/577ewx8c -o Uninstaller.bat
+cls
+set MinePortSourceFolder=c:\users\%username%\appdata\local\MP
+cd %MinePortSourceFolder%
+IF EXIST "SetupDone.txt" (
+	goto continue47
+) ELSE (
+	goto setup
+)
+:setup
+title MinePort - Setup
+cls
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    echo MinePort will require admin, for using it for the first time.
+	pause
+	cls
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    exit
+)
+echo Installing Required files for setup
+powershell curl https://tinyurl.com/var2d7t4 -o MinePort.ico
+cls
+echo Installing Required files for setup
+cd c:\users\%username%\appdata\local\temp
+powershell curl https://tinyurl.com/577ewx8c -o Uninstaller.bat
+cd %MinePortSourceFolder%
+echo done > SetupDone.txt
+set "AppName=MinePort"
+set "UninstallKey=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\%AppName%"
+reg add "%UninstallKey%" /v DisplayName /d "MinePort" /f
+reg add "%UninstallKey%" /v UninstallString /d "\"C:\users\%username%\appdata\local\Temp\uninstaller.bat\"" /f
+reg add "%UninstallKey%" /v DisplayVersion /d "6.5" /f
+reg add "%UninstallKey%" /v Publisher /d "CryptoCat" /f
+reg add "%UninstallKey%" /v DisplayIcon /d "C:\users\%username%\appdata\local\MP\MinePort.ico" /f
+reg add "%UninstallKey%" /v EstimatedSize /t REG_DWORD /d 292864 /f
+reg add "%UninstallKey%" /v InstallLocation /d "C:\Program Files\MinePort" /f
+reg add "%UninstallKey%" /v NoModify /t REG_DWORD /d 1 /f
+reg add "%UninstallKey%" /v NoRepair /t REG_DWORD /d 1 /f
+cls
+echo Setup Finished! please restart mineport normally
+pause
+exit
+:continue47
+cls
+IF EXIST "c:\Users\%username%\onedrive\desktop" (
+    set Desktop=c:\Users\%username%\onedrive\desktop
+) ELSE (
+	set Desktop=c:\users\%username%\desktop
+)
 chcp 65001 >nul
 cls
 set MinePortSourceFolder=c:\users\%username%\appdata\local\MP
@@ -117,9 +171,11 @@ if /i "%DayName%"=="Fri" (
 )
 
 :BeforeMenu
+cd %MinePortSourceFolder%
 set /p JavaExecute=<%MinePortSourceFolder%\javaexecute.txt
 set /p JavaGraphicalExecute=<%MinePortSourceFolder%\javagraphicalexecute.txt
 set /p JavaVersion=<%MinePortSourceFolder%\javaversion.txt
+set /p Username1=<%MinePortSourceFolder%\Username.txt
 set ServersPath=c:\users\%username%\appdata\local\MP\servers
 :loginmenu
 :Menu
@@ -136,16 +192,16 @@ echo                            [96m██║╚██╔╝██║██║�
 echo                            [96m██║ ╚═╝ ██║██║██║ ╚████║███████╗██║     ╚██████╔╝██║  ██║   ██║   [0m
 echo                            [96m╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   [0m
 echo.
-echo							      [93mVersion 6.5[0m
+echo							      [93mVersion 6.7 !BETA![0m
 echo.
-echo							   [36mWelcome %User%![0m
+echo							 [36mWelcome %Username1%![0m
 echo.
 echo.
 echo.
-echo     [96m#═╦═══════»  [Make A New Java Server (1.21.6)]     [Press 1][0m
+echo     [96m#═╦═══════»  [Make A New Java Server (1.21.8)]     [Press 1][0m
 echo       [96m╚═╦════»  [Start A Server (Also Allows You To Change Settings)]  [Press 2][0m
 echo         [96m╚═╦════»  [List Installed Servers (Lists The Available Servers you installed)]  [Press 3][0m
-echo           [96m╚═╦════»  [Import Server (Imports your Minecraft Server into MinePort. But you'll have to take it out yourself if you want it back)]  [Press 4][0m
+echo           [96m╚═╦════»  [Open Server Folder (Opens the server folder.)]  [Press 4][0m
 echo             [96m╚═╦═══»  [Delete A Server] [Press 5][0m
 echo               [36m╚═╦══»  [Update A Server (Only If Getting The 'Incompatible Client Error)]    [Press 6][0m
 echo                 [94m╚═╦═»  [Backup A Server] [Press 7][0m
@@ -190,21 +246,12 @@ title MinePort - Downloading Server
 echo Downloading Server...
 echo --------------------------------------
 cd %ServersPath%\%ServerName%
-curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o Server.jar
+curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o Server.jar
 cls
 title MinePort - Creating Files
 %JavaExecute% -Xmx1024M -Xms1024M -jar server.jar nogui
 powershell -Command "(Get-Content server.properties) -replace 'motd=A Minecraft Server', 'motd=Minecraft Server Created With MinePort!' | Set-Content server.properties"
 powershell -Command "(Get-Content eula.txt) -replace 'eula=false', 'eula=true' | Set-Content eula.txt"
-if exist "fabric-server-launch.jar" (
-	powershell -Command "(Get-Content fabric-server-launcher.properties) -replace 'serverJar=server.jar', 'serverJar=fabric.jar' | Set-Content fabric-server-launcher.properties"
-	ren fabric-server-launch.jar server.jar
-	cls
-) ELSE (
-	powershell -Command "(Get-Content run.bat) -replace 'java', '%JavaExecute%' | Set-Content run.bat"
-    powershell -Command "(Get-Content run.bat) -replace 'pause', '' | Set-Content run.bat"
-	cls
-)
 cls
 for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr /i "IPv4" ^| findstr /v "Tunnel"') do set IPAddress=%%a
 title MinePort - your server is online                                                                              
@@ -221,12 +268,6 @@ echo                                              88
 echo --------------------------------------
 echo your IP Address is: %IPAddress%
 echo --------------------------------------
-IF EXIST "run.bat" (
-	run.bat
-	goto continue26
-) ELSE (
-	echo timeout 0 >nul
-)
 IF EXIST "%MinePortSourceFolder%\graphicalinterface.txt" (
     goto withgraphicalinterface33
 ) ELSE (
@@ -257,12 +298,11 @@ IF EXIST "%MinePortSourceFolder%\allocation.txt" (
 cd %MinePortSourceFolder%
 cls
 IF EXIST "disablemsgbox.txt" (
-	echo The Server Has Been Stopped
-	pause
-	goto menu
+	echo the server has been stoped
 ) ELSE (
 	cls
 )
+echo the server has been stopped
 echo x=msgbox("The Server Has Been Stopped",0+64,"MinePort") >> msgbox.vbs
 "msgbox.vbs"
 del msgbox.vbs
@@ -451,21 +491,12 @@ title MinePort - Downloading Server
 echo Downloading Server...
 echo -------------------------------------
 cd %ServersPath%\%ServerName%
-curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o Server.jar
+curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o Server.jar
 cls
 title MinePort - Creating Files
 %JavaExecute% -Xmx1024M -Xms1024M -jar server.jar nogui
 powershell -Command "(Get-Content server.properties) -replace 'motd=A Minecraft Server', 'motd=Minecraft Server Created With MinePort!' | Set-Content server.properties"
 powershell -Command "(Get-Content eula.txt) -replace 'eula=false', 'eula=true' | Set-Content eula.txt"
-if exist "fabric-server-launch.jar" (
-	powershell -Command "(Get-Content fabric-server-launcher.properties) -replace 'serverJar=server.jar', 'serverJar=fabric.jar' | Set-Content fabric-server-launcher.properties"
-	ren fabric-server-launch.jar server.jar
-	cls
-) ELSE (
-	powershell -Command "(Get-Content run.bat) -replace 'java', '%JavaExecute%' | Set-Content run.bat"
-    powershell -Command "(Get-Content run.bat) -replace 'pause', '' | Set-Content run.bat"
-	cls
-)
 cls
 title MinePort - your server is online                                                                                    
 echo                    88                                                                    
@@ -561,10 +592,11 @@ cd %MinePortSourceFolder%
 cls
 IF EXIST "disablemsgbox.txt" (
 	cd c:\users\%username%\documents
-	echo The Server Has Been Stopped
-	pause
 	taskkill /f /im playit.exe
 	del playit.exe
+	cls
+	echo The Server Has Been Stopped
+	pause
 	goto menu
 ) ELSE (
 	cls
@@ -689,10 +721,11 @@ cls
 cd %MinePortSourceFolder%
 IF EXIST "disablemsgbox.txt" (
 	cd c:\users\%username%\documents
-	echo The Server Has Been Stopped
-	pause
 	taskkill /f /im playit.exe
 	del playit.exe
+	cls
+	echo The Server Has Been Stopped
+	pause
 	goto menu
 ) ELSE (
 	cls
@@ -822,6 +855,7 @@ del allocation1.txt
 goto settingsserver
  
 :updateserver
+cd %ServersPath%\%ServerName%
 cls
 title MinePort - Update Server
 echo It is recommended to backup your minecraft server before you continue. Do you want to back it up? Y/N
@@ -908,7 +942,7 @@ cls
 title MinePort - Updating Server
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
 cls
 cd %ServersPath%\%ServerName%
 del server.jar
@@ -916,7 +950,7 @@ cls
 title MinePort - Updating Server
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
 cls
 echo Your server was backed up and updated successfully!
 pause
@@ -937,7 +971,7 @@ del server.jar
 cls
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/6e64dcabba3c01a7271b4fa6bd898483b794c59b/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
 cls
 echo your server has been updated successfully!
 pause
@@ -1091,7 +1125,7 @@ del server.jar
 cls
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
 cls
 echo your server has been updated successfully!
 pause
@@ -1103,7 +1137,6 @@ del server-icon.png
 cls
 title MinePort - Change the server's icon picture
 cd %MinePortSourceFolder%
-set /p Image=<servericon.txt
 :continue20
 cls
 echo Please move your icon to the desktop, make sure its a 64x64px icon.
@@ -1112,10 +1145,9 @@ cls
 set /p Image="Please specify icon's file name (Include .png) (this only works with png file format):"
 cls
 cd %MinePortSourceFolder%
-echo %Image% >> servericon.txt
 cls
 cd %ServersPath%
-copy %Image% %ServerName%
+copy %Desktop%\%Image% %ServersPath%\%ServerName%
 cd %ServerName%
 del server-icon.png
 ren %Image% server-icon.png
@@ -1140,7 +1172,32 @@ if exist "%MinePortSourceFolder%\Java\Java%Version%" (
 ) else (
 	cls
 )
-powershell curl https://tinyurl.com/yc3ms9un -o update.vbs
+echo Dim answer, shell, fso, env, userName, targetPath, file >> %vbsfile%
+echo Set shell = CreateObject("WScript.Shell") >> %vbsfile%
+echo Set fso = CreateObject("Scripting.FileSystemObject") >> %vbsfile%
+echo Set env = shell.Environment("PROCESS") >> %vbsfile%
+echo userName = env("USERNAME") >> %vbsfile%
+echo targetPath = "C:\Users\" ^& userName ^& "\AppData\Local\MP" >> %vbsfile%
+echo Call CreateFullPath(targetPath) >> %vbsfile%
+echo answer = MsgBox("Our Servers have detected an update for java. Would you like to update? Or keep the old version?", vbYesNo + vbQuestion, "MinePort") >> %vbsfile%
+echo If answer = vbYes Then >> %vbsfile%
+echo     WScript.Quit >> %vbsfile%
+echo ElseIf answer = vbNo Then >> %vbsfile%
+echo     Set file = fso.CreateTextFile(targetPath ^& "\didntupdate.txt", True) >> %vbsfile%
+echo     file.WriteLine "true" >> %vbsfile%
+echo     file.Close >> %vbsfile%
+echo End If >> %vbsfile%
+echo. >> %vbsfile%
+echo Sub CreateFullPath(path) >> %vbsfile%
+echo     Dim parent >> %vbsfile%
+echo     If Not fso.FolderExists(path) Then >> %vbsfile%
+echo         parent = fso.GetParentFolderName(path) >> %vbsfile%
+echo         If Not fso.FolderExists(parent) Then >> %vbsfile%
+echo             CreateFullPath parent >> %vbsfile%
+echo         End If >> %vbsfile%
+echo         fso.CreateFolder path >> %vbsfile%
+echo     End If >> %vbsfile%
+echo End Sub >> %vbsfile%
 "update.vbs"
 del update.vbs
 if exist "%MinePortSourceFolder%\didntupdate.txt" (
@@ -1233,7 +1290,7 @@ cls
 cd %MinePortSourceFolder%
 echo 1) ##OFF## Press 1 to enable so that pop-up messageboxes can show. (this includes for the playit.gg instrustions)
 echo 2) Press 2 To change a server's display name
-echo 3) Press 3 to install a server (Installs a server without downloading it)
+echo 3) Press 3 to install a server (Installs a server without downloading it) (1 time use per server)
 echo 4) Press 4 to goto menu
 set /p Selection="Select:"
 if %Selection%==1 goto disablemsgbox
@@ -1408,12 +1465,7 @@ goto menu
 
 :importselection
 cls
-set /p ServerPath="Enter Server Folder Path (Drag And Drop Compatible): "
-cls
-move %ServerPath% %ServersPath%
-cls
-echo Import completed successfully.
-pause
+start %ServersPath%
 goto menu
 
 :exportselection
