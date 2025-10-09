@@ -1,51 +1,12 @@
 @echo off
-set "RCON_HOST=127.0.0.1"
-set "RCON_PORT=25575"
-set "RCON_PASS=MinePort"
-cd c:\users\%username%\appdata\local\temp
-powershell curl https://tinyurl.com/577ewx8c -o Uninstaller.bat
-cls
 set MinePortSourceFolder=c:\users\%username%\appdata\local\MP
 cd %MinePortSourceFolder%
-IF EXIST "SetupDone.txt" (
-	goto continue47
+IF EXIST "continuedebugserver.txt" (
+    del continuedebugserver.txt
+    goto continue45
 ) ELSE (
-	goto setup
+    cls
 )
-:setup
-title MinePort - Setup
-cls
-net session >nul 2>&1
-if %errorlevel% neq 0 (
-    echo MinePort will require admin, for using it for the first time.
-	pause
-	cls
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
-    exit
-)
-echo Installing Required files for setup
-powershell curl https://tinyurl.com/var2d7t4 -o MinePort.ico
-cls
-echo Installing Required files for setup
-cd c:\users\%username%\appdata\local\temp
-powershell curl https://tinyurl.com/577ewx8c -o Uninstaller.bat
-cd %MinePortSourceFolder%
-echo done > SetupDone.txt
-set "AppName=MinePort"
-set "UninstallKey=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\%AppName%"
-reg add "%UninstallKey%" /v DisplayName /d "MinePort" /f
-reg add "%UninstallKey%" /v UninstallString /d "\"C:\users\%username%\appdata\local\Temp\uninstaller.bat\"" /f
-reg add "%UninstallKey%" /v DisplayVersion /d "6.5" /f
-reg add "%UninstallKey%" /v Publisher /d "CryptoCat" /f
-reg add "%UninstallKey%" /v DisplayIcon /d "C:\users\%username%\appdata\local\MP\MinePort.ico" /f
-reg add "%UninstallKey%" /v EstimatedSize /t REG_DWORD /d 292864 /f
-reg add "%UninstallKey%" /v InstallLocation /d "C:\Program Files\MinePort" /f
-reg add "%UninstallKey%" /v NoModify /t REG_DWORD /d 1 /f
-reg add "%UninstallKey%" /v NoRepair /t REG_DWORD /d 1 /f
-cls
-echo Setup Finished! please restart mineport normally
-pause
-exit
 :continue47
 cls
 IF EXIST "c:\Users\%username%\onedrive\desktop" (
@@ -55,7 +16,6 @@ IF EXIST "c:\Users\%username%\onedrive\desktop" (
 )
 chcp 65001 >nul
 cls
-set MinePortSourceFolder=c:\users\%username%\appdata\local\MP
 cd %MinePortSourceFolder%
 md Servers
 :check33
@@ -110,6 +70,7 @@ IF EXIST "%MinePortSourceFolder%\Java" (
 :continue25
 cls
 cd %MinePortSourceFolder%
+md Java
 echo Installing Java
 echo ---------------------------------------
 curl -s https://api.adoptium.net/v3/info/available_releases > releases.json
@@ -124,7 +85,7 @@ set version=%version:,=%
 set "url=https://api.adoptium.net/v3/binary/latest/%version%/ga/windows/x64/jdk/hotspot/normal/adoptium"
 
 curl -L -o java.zip "%url%"
-powershell -command "Expand-Archive -Path 'java.zip' -DestinationPath 'Java'"
+powershell -Command "Expand-Archive -Path 'java.zip' -DestinationPath 'Java'"
 del Java.zip
 cd Java
 for /d %%i in (*) do echo Found: "%%i"
@@ -194,11 +155,11 @@ echo                            [96m╚═╝     ╚═╝╚═╝╚═╝  
 echo.
 echo							      [93mVersion 6.7 !BETA![0m
 echo.
-echo							 [36mWelcome![0m
+echo							 	  [36mWelcome![0m
 echo.
 echo.
 echo.
-echo     [96m#═╦═══════»  [Make A New Java Server (1.21.8)]     [Press 1][0m
+echo     [96m#═╦═══════»  [Make A New Java Server (1.21.10)]     [Press 1][0m
 echo       [96m╚═╦════»  [Start A Server (Also Allows You To Change Settings)]  [Press 2][0m
 echo         [96m╚═╦════»  [List Installed Servers (Lists The Available Servers you installed)]  [Press 3][0m
 echo           [96m╚═╦════»  [Open Server Folder (Opens the server folder.)]  [Press 4][0m
@@ -222,7 +183,7 @@ if %S%==8 goto settingsserver
 if %S%==9 goto exit
 cls
 title MinePort - Error 404
-echo [93mInvaild Input. Please Type 1-7.[0m
+echo [93mInvaild Input. Please Type 1-9.[0m
 pause												
 goto menu
 
@@ -246,7 +207,7 @@ title MinePort - Downloading Server
 echo Downloading Server...
 echo --------------------------------------
 cd %ServersPath%\%ServerName%
-curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o Server.jar
+curl https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar -o Server.jar
 cls
 title MinePort - Creating Files
 %JavaExecute% -Xmx1024M -Xms1024M -jar server.jar nogui
@@ -295,6 +256,7 @@ IF EXIST "%MinePortSourceFolder%\allocation.txt" (
 )
 
 :continue26
+timeout 4 >nul
 cd %MinePortSourceFolder%
 cls
 IF EXIST "disablemsgbox.txt" (
@@ -405,6 +367,7 @@ IF EXIST "%MinePortSourceFolder%\allocation.txt" (
 	goto continue11
 )
 :continue11
+timeout 4 >nul
 cd %MinePortSourceFolder%
 cls
 IF EXIST "disablemsgbox.txt" (
@@ -491,7 +454,7 @@ title MinePort - Downloading Server
 echo Downloading Server...
 echo -------------------------------------
 cd %ServersPath%\%ServerName%
-curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o Server.jar
+curl https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar -o Server.jar
 cls
 title MinePort - Creating Files
 %JavaExecute% -Xmx1024M -Xms1024M -jar server.jar nogui
@@ -588,6 +551,7 @@ IF EXIST "%MinePortSourceFolder%\allocation.txt" (
 	goto continue27
 )
 :continue27
+timeout 4 >nul
 cd %MinePortSourceFolder%
 cls
 IF EXIST "disablemsgbox.txt" (
@@ -717,6 +681,7 @@ IF EXIST "%MinePortSourceFolder%\allocation.txt" (
 	goto continue21
 )
 :continue21
+timeout 4 >nul
 cls
 cd %MinePortSourceFolder%
 IF EXIST "disablemsgbox.txt" (
@@ -942,7 +907,7 @@ cls
 title MinePort - Updating Server
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar -o server.jar
 cls
 cd %ServersPath%\%ServerName%
 del server.jar
@@ -950,7 +915,7 @@ cls
 title MinePort - Updating Server
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar -o server.jar
 cls
 echo Your server was backed up and updated successfully!
 pause
@@ -971,7 +936,7 @@ del server.jar
 cls
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar -o server.jar
 cls
 echo your server has been updated successfully!
 pause
@@ -1125,7 +1090,7 @@ del server.jar
 cls
 echo Downloading New Minecraft Server Files...
 echo ----------------------------------------------------------------------
-curl https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar -o server.jar
+curl https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar -o server.jar
 cls
 echo your server has been updated successfully!
 pause
@@ -1159,7 +1124,7 @@ goto serveroptionsjava
 
 :upgradecheck
 cd %MinePortSourceFolder%
-cls
+:cls
 curl -s https://api.adoptium.net/v3/info/available_releases > releases.json
 for /f "tokens=2 delims=:" %%A in ('findstr /i "most_recent_feature_release" releases.json') do (
     set version=%%A
@@ -1167,49 +1132,49 @@ for /f "tokens=2 delims=:" %%A in ('findstr /i "most_recent_feature_release" rel
 set version=%version: =%
 set version=%version:,=%
 
-if exist "%MinePortSourceFolder%\Java\Java%Version%" (
+IF EXIST "%MinePortSourceFolder%\Java\Java%Version%" (
     goto BeforeMenu
-) else (
-	cls
+) ELSE (
+    cls
 )
-echo Dim answer, shell, fso, env, userName, targetPath, file >> %vbsfile%
-echo Set shell = CreateObject("WScript.Shell") >> %vbsfile%
-echo Set fso = CreateObject("Scripting.FileSystemObject") >> %vbsfile%
-echo Set env = shell.Environment("PROCESS") >> %vbsfile%
-echo userName = env("USERNAME") >> %vbsfile%
-echo targetPath = "C:\Users\" ^& userName ^& "\AppData\Local\MP" >> %vbsfile%
-echo Call CreateFullPath(targetPath) >> %vbsfile%
-echo answer = MsgBox("Our Servers have detected an update for java. Would you like to update? Or keep the old version?", vbYesNo + vbQuestion, "MinePort") >> %vbsfile%
-echo If answer = vbYes Then >> %vbsfile%
-echo     WScript.Quit >> %vbsfile%
-echo ElseIf answer = vbNo Then >> %vbsfile%
-echo     Set file = fso.CreateTextFile(targetPath ^& "\didntupdate.txt", True) >> %vbsfile%
-echo     file.WriteLine "true" >> %vbsfile%
-echo     file.Close >> %vbsfile%
-echo End If >> %vbsfile%
-echo. >> %vbsfile%
-echo Sub CreateFullPath(path) >> %vbsfile%
-echo     Dim parent >> %vbsfile%
-echo     If Not fso.FolderExists(path) Then >> %vbsfile%
-echo         parent = fso.GetParentFolderName(path) >> %vbsfile%
-echo         If Not fso.FolderExists(parent) Then >> %vbsfile%
-echo             CreateFullPath parent >> %vbsfile%
-echo         End If >> %vbsfile%
-echo         fso.CreateFolder path >> %vbsfile%
-echo     End If >> %vbsfile%
-echo End Sub >> %vbsfile%
+echo Dim answer, shell, fso, env, userName, targetPath, file >> update.vbs
+echo Set shell = CreateObject("WScript.Shell") >> update.vbs
+echo Set fso = CreateObject("Scripting.FileSystemObject") >> update.vbs
+echo Set env = shell.Environment("PROCESS") >> update.vbs
+echo userName = env("USERNAME") >> update.vbs
+echo targetPath = "C:\Users\" ^& userName ^& "\AppData\Local\MP" >> update.vbs
+echo Call CreateFullPath(targetPath) >> update.vbs
+echo answer = MsgBox("Our Servers have detected an update for java. Would you like to update? Or keep the old version?", vbYesNo + vbQuestion, "MinePort") >> update.vbs
+echo If answer = vbYes Then >> update.vbs
+echo     WScript.Quit >> update.vbs
+echo ElseIf answer = vbNo Then >> update.vbs
+echo     Set file = fso.CreateTextFile(targetPath ^& "\didntupdate.txt", True) >> update.vbs
+echo     file.WriteLine "true" >> update.vbs
+echo     file.Close >> update.vbs
+echo End If >> update.vbs
+echo. >> update.vbs
+echo Sub CreateFullPath(path) >> update.vbs
+echo     Dim parent >> update.vbs
+echo     If Not fso.FolderExists(path) Then >> update.vbs
+echo         parent = fso.GetParentFolderName(path) >> update.vbs
+echo         If Not fso.FolderExists(parent) Then >> update.vbs
+echo             CreateFullPath parent >> update.vbs
+echo         End If >> update.vbs
+echo         fso.CreateFolder path >> update.vbs
+echo     End If >> update.vbs
+echo End Sub >> update.vbs
 "update.vbs"
 del update.vbs
 if exist "%MinePortSourceFolder%\didntupdate.txt" (
 	del %MinePortSourceFolder%\didntupdate.txt
 	goto BeforeMenu
 ) ELSE (
-	cls
+	::cls
 	taskkill /f /im java.exe
 	taskkill /f /im javaw.exe
     rd /s /q "Java"
 )
-cls
+::cls
 echo updating :D
 echo --------------------------------------------
 set "zip_url=https://api.adoptium.net/v3/binary/latest/%version%/ga/windows/x64/jdk/hotspot/normal/adoptium?project=jdk&image_type=zip"
@@ -1221,7 +1186,7 @@ cd Java
 for /d %%i in (*) do echo Found: "%%i"
 for /d %%i in (*) do ren "%%i" java%Version%
 cd..
-cls
+::cls
 cd c:\users\%username%\AppData\Local\MP
 if exist "javaexecute.txt" (
 	del javapath.txt
@@ -1242,7 +1207,7 @@ if exist "javagraphicalexecute.txt" (
 	goto continue28
 )
 :continue28
-cls
+::cls
 del javaexecute.txt
 del javaversion.txt
 del javagraphicalexecute.txt
@@ -1357,13 +1322,6 @@ pause
 goto menu
 
 :installdebugserver
-cd %MinePortSourceFolder%
-IF EXIST "continue.txt" (
-    del continue.txt
-    goto continue45
-) ELSE (
-    cls
-)
 cls
 title MinePort - Installing Server
 set /p ServerName="Enter Server Folder Path (Drag And Drop Compatible): "
@@ -1384,9 +1342,9 @@ if exist "fabric-server-launch.jar" (
     powershell -Command "(Get-Content run.bat) -replace 'pause', '' | Set-Content run.bat"
 	IF EXIST "run.bat" (
 		cd %MinePortSourceFolder%
-		echo sd >> continue.txt
+		echo sd >> continuedebugserver.txt
 		cd %ServerName%
-		echo WARNING: The Script will crash at any time on purpose, please reopen the script and press on the install a server option in settings
+		echo WARNING: The Script will crash at any time on purpose, please reopen the script.
 		pause
 		cls
 		run.bat
@@ -1449,6 +1407,7 @@ IF EXIST "%MinePortSourceFolder%\allocation.txt" (
 )
 
 :continue44
+timeout 4 >nul
 cd %MinePortSourceFolder%
 cls
 IF EXIST "disablemsgbox.txt" (
@@ -1485,7 +1444,7 @@ set /p ServerName1="Enter Server Folder Path (Drag And Drop Compatible): "
 cd %ServerName1%
 cls
 powershell -Command "(Get-Content eula.txt) -replace 'eula=false', 'eula=true' | Set-Content eula.txt"
-echo x=msgbox("You have successfully installed a server! the server will now start locally, if you want to run this server in MinePort, please import the server.",0+64,"MinePort") >> msgbox.vbs
+echo x=msgbox("You have successfully installed a server! the server will now start locally, if you want to run this server in MinePort, please open the server folder then move your server folder into the server folder.",0+64,"MinePort") >> msgbox.vbs
 "msgbox.vbs"
 del msgbox.vbs
 run.bat
@@ -1496,3 +1455,8 @@ echo x=msgbox("You have successfully installed a server! the server will now sta
 "msgbox.vbs"
 del msgbox.vbs
 goto godo
+
+:portableservermaker
+cls
+title MinePort - Portable USB Server
+echo 
