@@ -7,7 +7,7 @@ Have you ever wanted to host your own Minecraft server without all the complexit
 MinePort is an all-in-one, beginner-friendly, and feature-rich program that simplifies the entire Minecraft server creation and management process. From installing and customizing to backing up and updating, MinePort does it all—without the need for technical expertise, confusing port settings, or long setup times. It brings professional-level server control into the hands of any player with just a few clicks.
 
 What Is MinePort?
-MinePort is a multi-functional utility that helps players set up and manage both Java Edition and Bedrock Edition Minecraft servers. Designed with user-friendliness as the top priority, the program eliminates the need for terminal commands, server jars, and editing properties files manually.
+MinePort is a multi-functional utility that helps players set up and manage both Java Minecraft servers. Designed with user-friendliness as the top priority, the program eliminates the need for terminal commands, server jars, and editing properties files manually.
 
 Built with flexibility and control in mind, MinePort allows you to:
 
@@ -24,7 +24,7 @@ Whether you're hosting a massive multiplayer hub or a quiet survival world, Mine
 Key Features of MinePort:
 
 - Quick Server Creation
-With just a few steps, you can create a new server—choosing your version, world name, edition (Java or Bedrock), and whether it should be local or public. No more dealing with complex downloads or command-line instructions.
+With just a few steps, you can create a new server—choosing your version, world name, and whether it should be local or public. No more dealing with complex downloads or command-line instructions.
 
 - Public and Local Hosting Options
 Not everyone wants to host a global server, and not everyone is on the same network. That’s why MinePort offers both:
@@ -47,17 +47,7 @@ Apply updates without wiping your world
 
 Custom Server Icon Uploader:
 
-- Make your server stand out from the rest with a personalized icon. Easily upload your own .png file or choose from a pre-included set to visually brand your server on the multiplayer screen.
-
-Java and Bedrock Edition Support
-
-Why choose one when you can support both? MinePort understands that different players use different platforms:
-
-- Java Edition: Full support for mods, data packs, and hardcore configurations
-
-- Bedrock Edition: Easy cross-platform compatibility with players on mobile and PC
-
-- Run both editions using MinePort’s organized workspace—perfect for managing multiple servers at once.
+- Make your server stand out from the rest with a personalized icon. Easily upload your own .png file or choose from a pre-included set to visually brand your server on the multiplayer screen. but make sure its 64x64 pixels
 
 Who Is MinePort For?
 
@@ -91,7 +81,7 @@ It's like having a Minecraft server admin at your fingertips.
 
 Privacy & Control:
 
-- Your data stays yours. MinePort does not send any server or gameplay information anywhere. All configuration, backup, and log files remain local to your system unless you choose to export or sync them with cloud storage.
+- Your data stays yours. MinePort does not send any server or gameplay information anywhere. All configuration, backup, and log files remain local to your system (In Folder: c:\users\%username%\appdata\local\MP\Servers) unless you choose to export or sync them with cloud storage.
 
 Start Hosting in Minutes:
 
@@ -103,7 +93,13 @@ Ready to get started?
 
 Whether you're building alone, playing with friends, or launching a growing online server, MinePort is your trusted companion in Minecraft hosting.
 
-WARNING:
+Removed Features:
 
-This Program was created using batch, which is a delicate programming language.
+- We recently removed support for creating bedrock servers because it was way to hard to manage them both (Minecraft Java and Bedrock) because we had to constently make Minecraft bedrock updates more then Minecraft Java. But Minecraft java is still here!
+
+WARNINGs:
+
+- We recently made our files into exe because of how people can steal our code but it, but it is and still is batch code.
+
+- This Program was created using batch, which is a delicate programming language.
 And something WILL go wrong, so dont be shy to message me at our support site: https://itch.io/blog/938031/support-section
