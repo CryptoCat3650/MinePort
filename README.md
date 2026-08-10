@@ -1,105 +1,80 @@
-# MinePort
-Create Minecraft Servers locally or public!
--------------------------------------------------------
-Welcome to MinePort – Your Gateway to Seamless Minecraft Server Hosting
-Have you ever wanted to host your own Minecraft server without all the complexity? Whether you're a seasoned builder, a redstone engineer, a casual player, or an aspiring server owner, MinePort was built for you.
+# 🚀 Project Title (H1 Heading)
 
-MinePort is an all-in-one, beginner-friendly, and feature-rich program that simplifies the entire Minecraft server creation and management process. From installing and customizing to backing up and updating, MinePort does it all—without the need for technical expertise, confusing port settings, or long setup times. It brings professional-level server control into the hands of any player with just a few clicks.
+A brief, one-to-two sentence description of what your project does, who it is for, and why it is useful.
 
-What Is MinePort?
-MinePort is a multi-functional utility that helps players set up and manage both Java Minecraft servers. Designed with user-friendliness as the top priority, the program eliminates the need for terminal commands, server jars, and editing properties files manually.
+<!-- Badges section -->
+![GitHub License](https://shields.io)
+![GitHub stars](https://shields.io)
 
-Built with flexibility and control in mind, MinePort allows you to:
+## 📌 Table of Contents
+* [Features](#-features)
+* [Installation](#%EF%B8%8F-installation)
+* [Usage](#-usage)
+* [Configuration](#-configuration)
+* [Contributing](#-contributing)
 
-Launch public servers that anyone around the world can join
+## ✨ Features
+* **High Performance**: Built with optimization in mind.
+* **Easy Setup**: Zero configurations required out of the box.
+* *Cross-Platform*: Runs smoothly on Windows, macOS, and Linux.
 
-Set up local LAN servers for friends and family on the same network
+## 🛠️ Installation
 
-Maintain full control over server files and configurations through a guided interface
+Prerequisites and command-line steps to get your development environment running.
 
-Seamlessly switch between editions and server modes
+```bash
+# Clone the repository
+git clone https://github.com
 
-Whether you're hosting a massive multiplayer hub or a quiet survival world, MinePort adapts to your needs.
+# Navigate into the directory
+cd repo
 
-Key Features of MinePort:
+# Install all necessary dependencies
+npm install
+```
 
-- Quick Server Creation
-With just a few steps, you can create a new server—choosing your version, world name, and whether it should be local or public. No more dealing with complex downloads or command-line instructions.
+## 💻 Usage
 
-- Public and Local Hosting Options
-Not everyone wants to host a global server, and not everyone is on the same network. That’s why MinePort offers both:
+Provide simple instructions and code examples showing how to interact with the project.
 
-- Local Mode – Perfect for LAN parties, family gaming, or classrooms
+### Inline Code Example
+To start the development server, execute `npm run dev` in your terminal.
 
-- Public Mode – Makes it easy to open your server to players from around the world, with optional port forwarding and network tips built in
+### Syntax-Highlighted Code Block
+```javascript
+// Example code showing how to import and use the library
+const tracker = require('performance-tracker');
 
-Automatic Backups & Safe Recovery:
+tracker.init({
+  debug: true,
+  interval: 1000
+});
+```
 
-- Your worlds are valuable. Whether you've been playing for hours or weeks, one glitch shouldn’t wipe your progress. MinePort features a built-in backup system:
+## ⚙️ Configuration
 
-- Save to external drives, USBs, or cloud-synced folders
+Use the markdown table below to understand the available configuration variables:
 
-- Effortless Server Updating
+| Parameter | Type | Default | Description |
+| :--- | :---: | :---: | :--- |
+| `apiKey` | String | `null` | **Required**. Your unique API access token. |
+| `timeout` | Number | `3000` | The request timeout limit in milliseconds. |
+| `cache` | Boolean| `true` | Toggles local memory caching mechanisms. |
 
-Staying current with Minecraft’s latest updates is important for features, performance, and security. MinePort lets you:
+> ⚠️ **Important Note:** Never commit your production `.env` files or hardcoded `apiKey` strings to a public GitHub repository!
 
-Apply updates without wiping your world
+## 🤝 Contributing
 
-Custom Server Icon Uploader:
+We welcome community contributions! Please view the step-by-step checklist below:
 
-- Make your server stand out from the rest with a personalized icon. Easily upload your own .png file or choose from a pre-included set to visually brand your server on the multiplayer screen. but make sure its 64x64 pixels
+- [x] Fork the repository to your own account
+- [ ] Create a new feature branch (`git checkout -b feature/AmazingFeature`)
+- [ ] Commit your code changes (`git commit -m 'Add AmazingFeature'`)
+- [ ] Push changes to the branch (`git push origin feature/AmazingFeature`)
+- [ ] Open a Pull Request for review
 
-Who Is MinePort For?
-
-MinePort is made for everyone, from casual gamers to server veterans. You’ll love MinePort if:
-
-- You want to host a Minecraft world without the frustration of manual setup
-
-- You need a reliable, beginner-friendly server tool for school, clubs, or home
-
-- You enjoy customizing your gameplay with icons, settings, and server options
-
-- You’ve tried hosting before and found it confusing or unstable
-
-- You value security, backups, and easy updates
-
-Why Use MinePort?
-
-Traditional Minecraft server setup can be overwhelming. Downloading server JARs, configuring ports, setting up firewalls, choosing the right version—it’s a lot. MinePort automates all of this, providing:
-
-A modern, clean interface
-
-No Ads
-
-No Sign Up\Sign In Required
-
-Guided steps for public server exposure (with optional port forwarding help)
-
-Notifications for critical tasks (like backups and updates)
-
-It's like having a Minecraft server admin at your fingertips.
-
-Privacy & Control:
-
-- Your data stays yours. MinePort does not send any server or gameplay information anywhere. All configuration, backup, and log files remain local to your system (In Folder: c:\users\%username%\appdata\local\MP\Servers) unless you choose to export or sync them with cloud storage.
-
-Start Hosting in Minutes:
-
-- With MinePort, what once took an hour now takes just a few minutes. Focus more on building, surviving, and exploring—not troubleshooting.
-
-Ready to get started?
-
-- Download MinePort today and build your Minecraft world, your way.
-
-Whether you're building alone, playing with friends, or launching a growing online server, MinePort is your trusted companion in Minecraft hosting.
-
-Removed Features:
-
-- We recently removed support for creating bedrock servers because it was way to hard to manage them both (Minecraft Java and Bedrock) because we had to constently make Minecraft bedrock updates more then Minecraft Java. But Minecraft java is still here!
-
-WARNINGs:
-
-- We recently made our files into exe because of how people can steal our code but it, but it is and still is batch code.
-
-- This Program was created using batch, which is a delicate programming language.
-And something WILL go wrong, so dont be shy to message me at our support site: https://itch.io/blog/938031/support-section
+<details>
+  <summary><b>💡 Click here to view the License details</b></summary>
+  <br>
+  This project is licensed under the MIT License. You are free to use, modify, and distribute this software for personal or commercial purposes.
+</details>
