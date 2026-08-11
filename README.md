@@ -48,6 +48,4 @@ to open a link from a terminal you simply press Shift+Left Click when your mouse
 
 this is what the link should take you to:
 
-### <img width="2559" height="1393" alt="image" src="https://github.com/user-attachments/assets/499eb80b-5822-4a87-bab1-61b65748061c" />
-
 the "visit link to setup" on the playit terminal (on the website you opened) may look different to your current playit terminal, as this was because this screenshot was made 
