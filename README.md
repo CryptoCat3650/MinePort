@@ -97,4 +97,18 @@ With icon.png saved upload the logo into the app logo in General Infomation. If 
 
 <img width="1340" height="469" alt="image" src="https://github.com/user-attachments/assets/19cfac3e-376e-427b-a10e-b351e86115ba" />
 
-if that all done, simply press the copy button where it says Application ID
+if that all done, simply press the copy button where it says Application ID, then paste into into mineport where its asking you for the "Application ID".
+
+## Finishing Up ☑️
+
+with all that done your MinePort should be installed:
+
+<img width="1116" height="629" alt="image" src="https://github.com/user-attachments/assets/21afff09-e415-47b7-a55d-5ba7890bdc42" />
+
+## Linux Installation 🐧
+
+Since the coding syntax of Windows and Linux are way different between eachother, we may need to use Wine (windows code translator) to use the windows syntax.
+
+Depending on most distros the main way of installing why is:
+
+### 
