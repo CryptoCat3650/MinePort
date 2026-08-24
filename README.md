@@ -24,15 +24,15 @@ MinePort supports Windows, MacOS, and Linux. but MacOS and Linux are still prett
 
 <br><br>
 
-## Windows Installation
+## Windows Installation 🪟
 
 ## Step 1. Running the Program: 
 
 Download the Windows MinePort, it should just say MinePort.bat in the latest release: https://github.com/CryptoCat3650/MinePort/releases/tag/latest
 
-When you have downloaded the bat file, you could just simply double click it.
+When you have downloaded the bat file, you could just simply double click it on Windows.
 
-if SmartScreen comes up press more info, then run run.
+if SmartScreen comes up press more info, then run anyways.
 
 ## Step 2. Setting up playit: 
 
@@ -74,20 +74,27 @@ Step 11: step 11: wait for it to allocate your address, then under the heading "
 
 since the step on mineport require you to actively press any key. just press any key if you've followed the steps on here 
 
-after you have created a minecraft java tunnel from following the mineport or githubs instructions. Continue to the next step
+after you have created a minecraft java tunnel from following the mineport or github's instructions. Continue to the next step
+
+It should now install java/other dependences on your computer.
 
 ## Step 3. Setting up Discord Rich Presence:
 
-It should install java on your computer.
 
-when its finished it will ask you if you want discord rich presence enabled on MinePort.
+when its finished it will ask you if you want discord rich presence enabled on MinePort. If you typed yes:
 
-## If Yes
+Create a new Discord Application by going here: https://discord.com/developers/applications (make sure your signed into discord from there): 
 
-if you've pressed yes to set up rich presence follow these steps:
+Press "New Application"
 
-### Step 1:
+Type MinePort as its name, then press create. (make sure you agree to their terms and service.)
 
-Create a new Discord Application by going here (make sure your signned into discord from there): 
+From pressing create you should be taken into the General Information of the app.
 
+Download the logo here: https://github.com/CryptoCat3650/MinePort/releases/download/latest/icon.png
 
+With icon.png saved upload the logo into the app logo in General Infomation. If done correctly it should look like this:
+
+<img width="1340" height="469" alt="image" src="https://github.com/user-attachments/assets/19cfac3e-376e-427b-a10e-b351e86115ba" />
+
+if that all done, simply press the copy button where it says Application ID
