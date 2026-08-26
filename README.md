@@ -26,6 +26,8 @@ MinePort supports Windows, MacOS, and Linux. but MacOS and Linux are still prett
 
 ## Windows Installation 🪟
 
+<br><br>
+
 ## Step 1. Running the Program: 
 
 Download the Windows MinePort, it should just say MinePort.bat in the latest release: https://github.com/CryptoCat3650/MinePort/releases/tag/latest
