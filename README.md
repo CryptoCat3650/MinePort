@@ -199,4 +199,16 @@ now before we run MinePort we need to install powershell for wine.
 
 run this command in a terminal:
 
-```wintricks powershell```
+```winetricks powershell```
+
+in a few seconds you should see something like this:
+
+<img width="738" height="372" alt="image" src="https://github.com/user-attachments/assets/6053b015-02be-427d-8451-adb97c974a44" />
+
+just keep pressing next but at the last page, uncheck run powershell.
+
+after a couple of seconds the setup should be finished.
+
+now! we can download mineport from the releases tab make should you download the 'MinePort-Linux.bat' one
+
+but dont run it like `wine MinePort-Linux` in the terminal like 
