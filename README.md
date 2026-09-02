@@ -151,13 +151,17 @@ in terminal type: `sudo apt update` to refresh package infomation
 
 install wine now:
 
-```sudo apt install --install-recommends winehq-devel```
+```
+sudo apt install --install-recommends winehq-devel
+```
 
 ### Step 5:
 
 install winetricks:
 
-```sudo apt install winetricks```
+```
+sudo apt install winetricks
+```
 
 We are done!! now scroll down till you see the done installing wine heading.
 
@@ -167,13 +171,17 @@ We are done!! now scroll down till you see the done installing wine heading.
 
 install wine:
 
-```sudo dnf install wine```
+```
+sudo dnf install wine
+```
 
 ### Step 2:
 
 install winetricks:
 
-```sudo dnf install winetricks```
+```
+sudo dnf install winetricks
+```
 
 We are done!! now scroll down till you see the done installing wine heading.
 
@@ -183,13 +191,17 @@ We are done!! now scroll down till you see the done installing wine heading.
 
 install wine:
 
-```sudo pacman -S wine```
+```
+sudo pacman -S wine
+```
 
 ### Step 2:
 
 install winetricks:
 
-```sudo pacman -S winetricks```
+```
+sudo pacman -S winetricks
+```
 
 We are done!! now scroll down till you see the done installing wine heading.
 
@@ -199,7 +211,9 @@ now before we run MinePort we need to install powershell for wine.
 
 run this command in a terminal:
 
-```winetricks powershell```
+```
+winetricks powershell
+```
 
 in a few seconds you should see something like this:
 
