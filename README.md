@@ -225,4 +225,7 @@ after a couple of seconds the setup should be finished.
 
 now! we can download mineport from the releases tab make should you download the 'MinePort-Linux.bat' one
 
-but dont run it like `wine MinePort-Linux` in the terminal like 
+but dont run it like `wine MinePort-Linux` in the terminal, like do it like this:
+
+```
+WINEDEBUG=-all wine start cmd /c M
