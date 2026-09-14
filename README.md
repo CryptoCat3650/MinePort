@@ -18,7 +18,7 @@
 
 ## Table of Contents
 - [Welcome](##Welcome)
-- [How to Use](##Windows-Installation-🪟)
+- [Windows Installation](https://github.com/CryptoCat3650/MinePort/edit/main/README.md#windows-installation-)
 - [Advanced Configuration](#advanced-configuration)
 
 
