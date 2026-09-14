@@ -228,4 +228,6 @@ now! we can download mineport from the releases tab make should you download the
 but dont run it like `wine MinePort-Linux` in the terminal, like do it like this:
 
 ```
-WINEDEBUG=-all wine start cmd /c M
+WINEDEBUG=-allh wine start cmd /c MinePort-Linux.bat
+```
+you might want to write that down somewhere as it important for running MinePort on Linux
