@@ -18,7 +18,7 @@
 
 ## Table of Contents
 - [Welcome](##Welcome)
-- [How to Use](#how-to-use)
+- [How to Use](##Windows-Installation-🪟)
 - [Advanced Configuration](#advanced-configuration)
 
 
