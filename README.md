@@ -16,6 +16,13 @@
 <img alt="Static Badge" src="https://img.shields.io/badge/v7.0-grey?style=for-the-badge&label=Version&labelColor=blue">
 </p>
 
+## Table of Contents
+- [Welcome](##Welcome)
+- [How to Use](#how-to-use)
+- [Advanced Configuration](#advanced-configuration)
+
+
+
 ## Welcome!
 
 **MinePort** is a program designed to automate the process of making a **standand** Minecraft server. Whenever your creating a **modded** or **vanilla** experience MinePort would work best (*A better free alternative to other projects*).
