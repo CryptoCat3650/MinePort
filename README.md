@@ -24,6 +24,7 @@
 
 
 
+
 ## Welcome!
 
 **MinePort** is a program designed to automate the process of making a **standand** Minecraft server. Whenever your creating a **modded** or **vanilla** experience MinePort would work best (*A better free alternative to other projects*).
@@ -238,4 +239,4 @@ but dont run it like `wine MinePort-Linux` in the terminal, like do it like this
 ```
 WINEDEBUG=-all wine start cmd /c MinePort-Linux.bat
 ```
-you might want to write that down somewhere as it important for running MinePort on Linux
+you might want to write that down somewhere as it is important for running MinePort on Linux
