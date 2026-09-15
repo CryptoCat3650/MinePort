@@ -20,6 +20,7 @@
 - [Welcome](##Welcome)
 - [Windows Installation](https://github.com/CryptoCat3650/MinePort/tree/main#windows-installation-)
 - [Linux Installation](https://github.com/CryptoCat3650/MinePort/tree/main#linux-installation-)
+  [Done installing Wine](https://github.com/CryptoCat3650/MinePort/tree/main#done-installing-wine)
 
 
 
