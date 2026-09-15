@@ -19,7 +19,7 @@
 ## Table of Contents
 - [Welcome](##Welcome)
 - [Windows Installation](https://github.com/CryptoCat3650/MinePort/tree/main#windows-installation-)
-- [Linux Installation](#advanced-configuration)
+- [Linux Installation](https://github.com/CryptoCat3650/MinePort/tree/main#linux-installation-)
 
 
 
