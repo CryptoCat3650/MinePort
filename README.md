@@ -239,3 +239,5 @@ but dont run it like `wine MinePort-Linux` in the terminal, like do it like this
 WINEDEBUG=-all wine start cmd /c MinePort-Linux.bat
 ```
 you might want to write that down somewhere as it is important for running MinePort on Linux
+
+once you run `WINEDEBUG=-all wine start cmd /c MinePort-Linux.bat`
