@@ -241,4 +241,6 @@ WINEDEBUG=-all wine start cmd /c MinePort-Linux.bat
 you might want to write that down somewhere as it is important for running MinePort on Linux
 
 once you run `WINEDEBUG=-all wine start cmd /c MinePort-Linux.bat` in terminal, are a short amount of time, a black terminal window should show, the font displayed on this terminal should
-be way different yi
+be way different then terminal you ran the command on.
+
+now it 
